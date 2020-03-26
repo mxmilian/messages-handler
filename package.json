@@ -1,0 +1,25 @@
+{
+  "name": "messages-handler",
+  "version": "1.0.0",
+  "description": "Messages handler for arduino",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mxmilian/messages-handler.git"
+  },
+  "author": "Maksymilian Kierski maxm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mxmilian/messages-handler/issues"
+  },
+  "homepage": "https://github.com/mxmilian/messages-handler#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
