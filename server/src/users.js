@@ -7,22 +7,13 @@ const addUser = ({ id, name, room }) => {
   const existingUser = users.find(
     user => user.room === room && user.name === name
   );
-  if (existingUser) {
-    return {
-      error: 'This username is already taken 😔'
-    };
+  if (!name || !room) return { error: 'User name and room is required 😔' };
+  if (existingUser) return { error: 'This username is already taken 😔' };
 
-    const user = {
-      id,
-      name,
-      room
-    };
-    users.push(user);
+  const user = { id, name, room };
+  users.push(user);
 
-    return {
-      user
-    };
-  }
+  return { user };
 };
 const removeUser = id => {
   const index = users.findIndex(user => user.id === id);
