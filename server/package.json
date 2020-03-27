@@ -28,6 +28,7 @@
     "eslint-plugin-import": "^2.20.1",
     "helmet": "^3.22.0",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "prettier": "^2.0.2"
   }
 }

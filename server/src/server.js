@@ -16,6 +16,14 @@ app.use(express.json());
 
 app.use(consoleHandle);
 
+io.on('connect', socket => {
+  console.log('New connection 😳');
+
+  socket.on('disconnect', () => {
+    console.log('User has left');
+  })
+});
+
 app.route('/').get((req, res) => {
   try {
     res.status(200).json({
@@ -34,5 +42,5 @@ app.route('/').get((req, res) => {
 
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Server is listening on port ${port}👂`);
 });
