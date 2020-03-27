@@ -28,6 +28,12 @@ const Chat = ({ location }) => {
     };
   }, [ENDPOINT, location.search]);
 
+  useEffect(() => {
+    socket.on('message', ({})=>{
+      console.log()
+    })
+  })
+
   return (
     <div>
     </div>
