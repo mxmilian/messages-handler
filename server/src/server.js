@@ -19,9 +19,18 @@ app.use(consoleHandle);
 io.on('connect', socket => {
   console.log('New connection 😳');
 
-  socket.on('disconnect', () => {
-    console.log('User has left');
-  })
+  socket.on('join', ({ name, room }, errorHandler) => {
+    console.log(name, room);
+    const error = true;
+
+    if (error) {
+      errorHandler({ error: 'error' });
+    }
+  });
+
+  socket.on('disconnect', ({ name }) => {
+    console.log(`The ${name} disconnect`);
+  });
 });
 
 app.route('/').get((req, res) => {

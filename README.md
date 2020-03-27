@@ -1,5 +1,5 @@
 # messages-handler
-###Welcome! 👋
+Welcome! 👋
 
 From this side messages handler which uses **socket.io** 
 to ensure maximum efficiency in handling messages. 
