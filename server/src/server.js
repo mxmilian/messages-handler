@@ -22,40 +22,44 @@ app.use(consoleHandle);
 
 io.on('connect', socket => {
   //Listening for new users
-  socket.on('join', ({ name, room }, errorHandler) => {
+  socket.on('join', ({ name, room }, callback) => {
     //Creating a new user
     const { user, error } = addUser({ id: socket.id, name, room });
-    if (error) return errorHandler({ error });
+    if (error) return callback({ error });
     //Adding a new user to the declared room
     socket.join(user.room);
 
     //Sending the message to new user
     socket.emit('message', {
-      user: 'Friendly helpfully bot',
-      text: `Hello ${user.name}, welcome to the room: ${user.room}`
-    });
+      user: 'Friendly bot',
+      text: `Hello ${user.name}, welcome to the room: ${user.room} 👋😎!` });
 
     //Sending the message to users except the joining user
     socket.broadcast
       .to(user.room)
-      .emit('message', { user: 'admin', text: `${user.name} has joined!` });
+      .emit('message', { user: 'Friendly bot', text: `${user.name} has joined!` });
 
-    errorHandler();
+    callback();
   });
 
   //Listening for new messages
-  socket.on('sendMessage', (message, errorHandler) => {
+  socket.on('sendMessage', (message, callback) => {
     //Getting the message creator
     const user = getUser(socket.id);
-
+    console.log(message);
     //Sending the message to the room
     io.to(user.room).emit('message', { user: user.name, text: message });
-    errorHandler();
+    callback();
   });
 
   //Listening for disconnecting users
-  socket.on('disconnect', ({ name }) => {
-    console.log(`The ${name} disconnect`);
+  socket.on('disconnect', () => {
+    const user = removeUser(socket.id);
+
+    if(user) {
+      io.to(user.room).emit('message', {user: 'Friendly bot', text: `${user.name} just has left the chat.😢`});
+      io.to(user.room).emit('roomData', {room: user.room, users: getRoomUsers(user.room)});
+    }
   });
 });
 
