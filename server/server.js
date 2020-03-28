@@ -2,19 +2,17 @@ const express = require('express');
 const http = require('http');
 require('dotenv').config();
 const socket = require('socket.io');
-const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const { consoleHandle } = require('./middleware/middleware');
-const { addUser, removeUser, getUser, getRoomUsers } = require('./Model/users');
-const router = require('./routes/router');
+const { consoleHandle } = require('./src/middleware/middleware');
+const { addUser, removeUser, getUser, getRoomUsers } = require('./src/Model/users');
+const router = require('./src/routes/router');
 
 const app = express();
 const server = http.createServer(app);
 const io = socket(server);
 
 app.use(cors());
-app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
 app.use(router);

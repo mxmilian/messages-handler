@@ -4,7 +4,9 @@
   "description": "Messages handler for arduino",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/server.js"
+    "start": "node server.js",
+    "heroku-prebuild": "export NPM_CONFIG_PRODUCTION=false; export NODE_ENV=; NPM_CONFIG_PRODUCTION=false NODE_ENV=development npm install --only=dev --dev",
+    "heroku-postbuild": "export NPM_CONFIG_PRODUCTION=true; export NODE_ENV=production;"
   },
   "repository": {
     "type": "git",
@@ -28,7 +30,6 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
     "helmet": "^3.22.0",
-    "morgan": "^1.10.0",
     "nodemon": "^2.0.2",
     "prettier": "^2.0.2"
   }

@@ -8,6 +8,7 @@ server/.gitignore
 
 client/node_modules
 client/npm-debug.log*
+client/.gitignore
 client/build
 client/.env
 client/README.md

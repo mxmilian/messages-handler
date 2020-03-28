@@ -13,7 +13,7 @@ const Chat = ({ location }) => {
   const [message, setMessage] = useState([]);
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  const ENDPOINT = 'localhost:1337';
+  const ENDPOINT = 'https://messages-handler.herokuapp.com/';
 
   useEffect(() => {
     const { name, room } = querystring.parse(location.search);
