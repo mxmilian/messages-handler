@@ -37,10 +37,14 @@ const Chat = ({ location }) => {
       setMessages([...messages, message]);
       console.log(messages);
     });
-    socket.on('roomData', ({users}) => {
-      setUsers(users)
-    })
   }, [messages]);
+
+  useEffect( () => {
+    socket.on('roomData', ({users}) => {
+      setUsers(users);
+      console.log(users);
+    })
+  },[users]);
 
   const sendMessage = e => {
     e.preventDefault();

@@ -39,6 +39,7 @@ io.on('connect', socket => {
       .to(user.room)
       .emit('message', { user: 'Friendly bot', text: `${user.name} has joined!` });
 
+    io.to(user.room).emit('roomData', {room: user.room, users: getRoomUsers(user.room)});
     callback();
   });
 
