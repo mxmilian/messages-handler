@@ -6,6 +6,7 @@ server/node_modules
 server/.env
 server/npm-debug.log*
 server/.gitignore
+server/.DS_Store
 
 client/node_modules
 client/npm-debug.log*
@@ -13,6 +14,9 @@ client/.gitignore
 client/build
 client/.env
 client/README.md
+client/.DS_Store
 
 arduino-server/.gitignore
 arduino-server/.idea
+arduino-server/node_modules
+arduino-server/.DS_Store
