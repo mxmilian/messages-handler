@@ -1,0 +1,14 @@
+{
+  "name": "arduino-server",
+  "version": "1.0.0",
+  "description": "The application that communicates with chat and management of arduino",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "Maksymilian Kierski maxm",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}

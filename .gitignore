@@ -13,3 +13,6 @@ client/.gitignore
 client/build
 client/.env
 client/README.md
+
+arduino-server/.gitignore
+arduino-server/.idea
