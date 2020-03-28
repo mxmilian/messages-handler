@@ -32,7 +32,8 @@ io.on('connect', socket => {
     //Sending the message to new user
     socket.emit('message', {
       user: 'Friendly bot',
-      text: `Hello ${user.name}, welcome to the room: ${user.room} 👋😎!` });
+      text: `Hello ${user.name}, welcome to the room: ${user.room} 👋😎 
+      type !help if you need some help` });
 
     //Sending the message to users except the joining user
     socket.broadcast
@@ -50,6 +51,12 @@ io.on('connect', socket => {
     console.log(message);
     //Sending the message to the room
     io.to(user.room).emit('message', { user: user.name, text: message });
+
+    if(message==='!help'){
+      socket.emit(user.room).emit('message', {
+        user: 'Friendly bot',
+        text: `Chat created by https://github.com/mxmilian, type !commands to see the available commands` });
+    }
     callback();
   });
 

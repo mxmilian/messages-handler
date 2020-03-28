@@ -7,7 +7,6 @@ import Messages from './Messages';
 import Online from './Online';
 
 let socket;
-
 const Chat = ({ location }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
@@ -34,23 +33,20 @@ const Chat = ({ location }) => {
 
   useEffect(() => {
     socket.on('message', message => {
-      setMessages([...messages, message]);
-      console.log(messages);
+      setMessages(messages => [...messages, message]);
     });
-  }, [messages]);
+  }, []);
 
-  useEffect( () => {
-    socket.on('roomData', ({users}) => {
+  useEffect(() => {
+    socket.on('roomData', ({ users }) => {
       setUsers(users);
-      console.log(users);
-    })
-  },[users]);
+    });
+  }, []);
 
   const sendMessage = e => {
     e.preventDefault();
     if (message) socket.emit('sendMessage', message, () => setMessage(''));
   };
-  console.log(messages, message);
 
   return (
     <div>
@@ -63,7 +59,7 @@ const Chat = ({ location }) => {
           sendMessage={sendMessage}
         />
       </div>
-      <Online users={users}/>
+      <Online users={users} />
     </div>
   );
 };
