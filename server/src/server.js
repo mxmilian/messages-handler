@@ -33,14 +33,21 @@ io.on('connect', socket => {
     socket.emit('message', {
       user: 'Friendly bot',
       text: `Hello ${user.name}, welcome to the room: ${user.room} 👋😎 
-      type !help if you need some help` });
+      type !help if you need some help`
+    });
 
     //Sending the message to users except the joining user
     socket.broadcast
       .to(user.room)
-      .emit('message', { user: 'Friendly bot', text: `${user.name} has joined!` });
+      .emit('message', {
+        user: 'Friendly bot',
+        text: `${user.name} has joined!`
+      });
 
-    io.to(user.room).emit('roomData', {room: user.room, users: getRoomUsers(user.room)});
+    io.to(user.room).emit('roomData', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    });
     callback();
   });
 
@@ -48,15 +55,24 @@ io.on('connect', socket => {
   socket.on('sendMessage', (message, callback) => {
     //Getting the message creator
     const user = getUser(socket.id);
-    console.log(message);
+
     //Sending the message to the room
     io.to(user.room).emit('message', { user: user.name, text: message });
 
-    if(message==='!help'){
+    if (message === '!help') {
       socket.emit(user.room).emit('message', {
         user: 'Friendly bot',
-        text: `Chat created by https://github.com/mxmilian, type !commands to see the available commands` });
+        text: `messages handler created by https://github.com/mxmilian, type !commands to see the available commands ✍️`
+      });
     }
+
+    if(message === '!commands') {
+      socket.emit(user.room).emit('message', {
+        user: 'Friendly bot',
+        text: `These commands are used to handle arduino: '!led'`
+      });
+    }
+
     callback();
   });
 
@@ -64,9 +80,15 @@ io.on('connect', socket => {
   socket.on('disconnect', () => {
     const user = removeUser(socket.id);
 
-    if(user) {
-      io.to(user.room).emit('message', {user: 'Friendly bot', text: `${user.name} just has left the chat.😢`});
-      io.to(user.room).emit('roomData', {room: user.room, users: getRoomUsers(user.room)});
+    if (user) {
+      io.to(user.room).emit('message', {
+        user: 'Friendly bot',
+        text: `${user.name} just has left the chat.😢`
+      });
+      io.to(user.room).emit('roomData', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
     }
   });
 });
