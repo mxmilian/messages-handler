@@ -1,5 +1,5 @@
 const io = require('socket.io-client');
-const { Board, Led } = require('johnny-five');
+const { Board, Led, LCD } = require('johnny-five');
 
 const ENDPOINT = 'https://messages-handler.herokuapp.com/';
 const socket = io(ENDPOINT);
@@ -38,6 +38,20 @@ const validHEX = hex => {
       return false;
   }
   return false;
+};
+
+const LCDdisplay = message => {
+  const lcd = new LCD({
+    controller: 'PCF8574'
+  });
+
+  const allMes =  message.substring(0, 32);
+  const first = allMes.substring(0,18);
+  const second = allMes.substring(18, 30);
+  lcd.cursor(0, 0).print(first);
+  lcd.cursor(1, 0).print(second);
+  if(message.length >= 29) lcd.cursor(1, 13).print('...');
+
 };
 
 board.on('ready', () => {
@@ -83,5 +97,6 @@ board.on('ready', () => {
         }
       });
     }
+    LCDdisplay(arduinoMessage);
   });
 });
