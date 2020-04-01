@@ -12,6 +12,9 @@ socket.on('connect', () => {
 const name = 'ardunio-bot';
 const room = 'arduino';
 
+let rainbow = ["FF0000"];
+
+
 socket.emit(
   'join',
   {
@@ -53,7 +56,7 @@ board.on('ready', () => {
     if (arduinoMessage === '!ledon') {
       led.fadeIn();
 
-      board.wait(10, () => {
+      board.wait(100, () => {
         led.fadeOut();
       });
     }
@@ -63,14 +66,22 @@ board.on('ready', () => {
     if (arduinoMessage.startsWith('!led') && arduinoMessage.length ===  11){
       const hex = arduinoMessage.substring(4,11);
       if(validHEX(hex)){
-        ledRGB.on();
-        ledRGB.on();
+        ledRGB.off();
+        rainbow.push(hex);
         ledRGB.color(hex);
         console.log(`hex: ${hex}`);
       }
     }
     if(arduinoMessage === '!ledrainbow'){
-
+      ledRGB.off();
+      let index = 0;
+      console.log(rainbow.length);
+      board.loop(1000, () => {
+        ledRGB.color(rainbow[index++]);
+        if (index === rainbow.length) {
+          index = 0;
+        }
+      });
     }
   });
 });
