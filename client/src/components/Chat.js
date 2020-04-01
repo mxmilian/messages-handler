@@ -52,6 +52,9 @@ const Chat = ({ location }) => {
     <div>
       <div>
         <Info room={room} />
+        <h3>Available commands</h3>
+        <p>!ledON - turn on led</p>
+        <p>!ledOFF - turn off led</p>
         <Messages messages={messages} name={name} />
         <Input
           message={message}
